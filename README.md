@@ -3,6 +3,35 @@ GradleScripts
 
 Some useful scripts for our based Gradle compiled Android Apps
 
+<h3>Create relase signed apk file</h3>
+
+```
+...
+signingConfigs {
+    release {
+        storeFile file(System.console().readLine("\n\$ Enter keystore path: "))
+        storePassword System.console().readPassword("\n\$ Enter keystore password: ")
+        keyAlias System.console().readLine("\n\$ Enter key alias: ")
+        keyPassword System.console().readPassword("\n\$ Enter key password: ")
+    }
+}
+...
+```
+This will prompt for each of the parameters.
+
+Having said this, in these situations, you are better off setting environment variables for these parameters and using them in the gradle file. Environment variables can be accessed with System.getenv("<VAR-NAME>")
+```
+... 
+signingConfigs {
+    release {
+        storeFile file(System.getenv("KEYSTORE"))
+        storePassword System.getenv("KEYSTORE_PASSWORD")
+        keyAlias System.getenv("KEY_ALIAS")
+        keyPassword System.getenv("KEY_PASSWORD")
+    }
+}
+...
+```
 
 
 <h3>Controlling Android properties of all your modules from the main project</h3>
